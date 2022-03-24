@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import MainStack from './mainStack';
+import CityScreen from '../screen/CityScreen/CityScreen';
+import ListScreen from '../screen/ListScreen/ListScreen';
 
 const Stack = createNativeStackNavigator()
 
 const Routes = () => {
-    // const [token, setToken] = useState('')
-    // const getToken = async () => {
-    //     setToken(AsyncStorage.getItem('token'))
-    // }
-    // useEffect(() => {
-    //     getToken()
-    // }, [])
-
     return (
 
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="MainStack" component={MainStack} />
+                <Stack.Screen name="List" component={ListScreen} />
+                <Stack.Screen name="City" component={CityScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import weather from '../weather'
 
 const InfoDay = (props) => {
     const [dataCity, setDataCity] = useState()
@@ -23,7 +24,7 @@ const InfoDay = (props) => {
     }, [])
     return (
         <View>
-            <Desc>{props.desc}</Desc>
+            <Desc>{dataCity?.forecast && weather[dataCity?.forecast[0].weather][0]}.</Desc>
             <Border></Border>
             <ViewHour
                 horizontal={true}
@@ -32,7 +33,7 @@ const InfoDay = (props) => {
                     dataCity?.forecast?.map((item) => (
                         <ItemHour key={item.datetime}>
                             <Hour>{new Date(item.datetime).getHours()} h</Hour>
-                            <Icon>☀️</Icon>
+                            <Icon>{weather[item.weather][1]}</Icon>
                             <Temp>{item.temp2m}°</Temp>
                         </ItemHour>
                     ))
@@ -41,7 +42,7 @@ const InfoDay = (props) => {
                     dataCity?.forecast?.map((item) => (
                         <ItemHour key={item.datetime}>
                             <Hour>{new Date(item.datetime).getHours()} h</Hour>
-                            <Icon>☀️</Icon>
+                            <Icon>{weather[item.weather][1]}</Icon>
                             <Temp>{item.temp2m}°</Temp>
                         </ItemHour>
                     ))
@@ -54,7 +55,7 @@ const View = styled.View`
   margin: 0px auto;
   width: 90%;
   background-color: #122164c4;
-  margin-top: 60px;
+  margin-top: 50px;
   padding: 15px;
   border-radius: 15px;
 `
@@ -80,7 +81,7 @@ const Hour = styled.Text`
 const Icon = styled.Text`
   font-size: 17px;
   color: white;
-  margin: 11px 0px;
+  margin: 5px 0px;
 `
 const Temp = styled.Text`
   font-size: 18px;

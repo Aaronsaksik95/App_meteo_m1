@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import weather from '../weather/index'
 import axios from 'axios'
 
 const InfoTitle = (props) => {
-  const [dataCity, setDataCity] = useState()
+  const [dataCity, setDataCity] = useState({})
   const [tmin, setTmin] = useState('')
   const [tmax, setTmax] = useState('')
 
@@ -43,8 +44,8 @@ const InfoTitle = (props) => {
   return (
     <View>
       <City>{dataCity?.city?.name}</City>
-      <Temp>{dataCity?.forecast[0]?.temp2m}°</Temp>
-      <Desc>{props.desc}</Desc>
+      <Temp>{dataCity?.forecast && dataCity?.forecast[0]?.temp2m}°</Temp>
+      <Desc>{dataCity?.forecast && weather[dataCity?.forecast[0].weather][0]}</Desc>
       <MaxMinView>
         <MaxMin>Max. {tmax}°</MaxMin>
         <MaxMin>Min. {tmin}°</MaxMin>

@@ -5,23 +5,20 @@ const InputForm = (props) => {
   return (
     <>
       <Input
-        placeholder={props.placeholder}
-        placeholderTextColor="grey"
-        width={props.width}
-        height={props.height}
+        placeholder="Rechercher une ville"
         onChangeText={props.onChangeText}
-        secureTextEntry={props.secureTextEntry}
       />
     </>
   )
 }
 const Input = styled.TextInput`
-  width: ${props => props.width};
-  height: ${props => props.height};
-  border-radius: ${10};
-  padding-left: 10px;
-  margin: 10px ;
-  background-color: ${props => props.theme.bluelight};
+  width: 95%;
+  height: 30px;
+  margin: 0px auto;
+  border-radius: 5px;
+  padding-left: 12px;
+  color: white;
+  background-color: #252525;
 `
 
 export default InputForm

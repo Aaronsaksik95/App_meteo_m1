@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import weather from '../weather'
 
 const InfoDay = (props) => {
     const [dataCity, setDataCity] = useState()
@@ -31,7 +32,7 @@ const InfoDay = (props) => {
     }, [])
     return (
         <View>
-            <Title>🗓 PRÉVISIONS SUR 10 JOURS</Title>
+            <Title>🗓 PRÉVISIONS SUR 14 JOURS</Title>
             <Border></Border>
             <ViewOneDay>
                 {
@@ -39,7 +40,7 @@ const InfoDay = (props) => {
                         <>
                             <ItemDay key={item.datetime}>
                                 <Day>{dayWeek[new Date(item.datetime).getDay()]}</Day>
-                                <Icon>☀️</Icon>
+                                <Icon>{dataCity?.forecast && weather[item.weather][1]}</Icon>
                                 <MaxMinView>
                                     <MaxMin>{item.tmin}°</MaxMin>
                                     <MaxMin>{item.tmax}°</MaxMin>
@@ -57,7 +58,7 @@ const View = styled.View`
   margin: 0px auto;
   width: 90%;
   background-color: #122164c4;
-  margin-top: 60px;
+  margin-top: 10px;
   padding: 15px;
   border-radius: 15px;
 `
@@ -79,10 +80,12 @@ const Title = styled.Text`
 const Day = styled.Text`
   font-size: 15px;
   color: white;
+  width: 20%;
 `
 const Icon = styled.Text`
   font-size: 17px;
   color: white;
+  width: 20%;
 `
 const MaxMinView = styled.View`
   flex-direction: row;

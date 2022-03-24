@@ -1,79 +1,47 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+// import { View } from 'react-native';
 import InputForm from '../../components/inputForm/index';
-import ButtonForm from '../../components/buttonForm/index';
-import Logo from '../../components/logo/index';
-import Message from '../../components/message/index'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Title from '../../components/title/index'
+import ListCity from '../../components/listCity';
 import axios from 'axios';
+import styled from 'styled-components'
 
-const LoginScreen = ({ navigation }) => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [message, setMessage] = useState('')
-    const verifyUsername = () => {
-        if (username.length < 3) {
-            setMessage("Username doit contenir plus de 3 caractères.")
-            return false
-        }
-        setMessage('')
-        return true
-    }
-    const verifyPassword = () => {
-        if (password.length < 8) {
-            setMessage("Password doit contenir plus de 8 caractères.")
-            return false
-        }
-        setMessage('')
-        return true
-    }
-    const login = () => {
-        verifyUsername()
-        verifyPassword()
-        if (verifyUsername() && verifyPassword()) {
-            axios.post('https://easy-login-api.herokuapp.com/users/login', {
-                username: username,
-                password: password
+const ListScreen = ({ navigation }) => {
+    const [city, setCity] = useState('')
+    const [cities, setCities] = useState([])
+    const [insee, setInsee] = useState('')
+
+    useEffect(() => {
+        axios({
+            method: 'GET',
+            url: `https://api.meteo-concept.com/api/location/cities`,
+            params: {
+                token: 'f0c5c1f65c0579d4064425e213cf4fda2a3a78ba16911b2b3ed86a543d93b4b4',
+                search: city
+            }
+        })
+            .then(response => {
+                console.log(response.data.cities)
+                setCities(response.data.cities)
             })
-                .then(async function (response) {
-                    await AsyncStorage.setItem(
-                        'token',
-                        response.headers['x-access-token']
-                    );
-                    navigation.navigate('Characters')
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }
-    }
-    return (
-        <View style={{ flex: 0.7, alignItems: 'center', justifyContent: 'center' }}>
-            <Logo />
-            <InputForm
-                onChangeText={textValue => setUsername(textValue)}
-                placeholder="Username"
-                width={300}
-                height={50}
-            />
-            <InputForm
-                onChangeText={textValue => setPassword(textValue)}
-                placeholder="Password"
-                width={300}
-                height={50}
-                secureTextEntry={true}
-            />
-            <ButtonForm
-                onPress={login}
-                // () => navigation.navigate('Characters')}
-                title="Connexion"
-                width={300}
-                height={50}
-            />
+            .catch(error => {
+                console.log(error)
+            })
+    }, [city])
 
-            <Message fontSize='20px' title={message} />
+    return (
+        <View>
+            <Title title="Météo" />
+            <InputForm
+                onChangeText={textValue => setCity(textValue)}
+            />
+            <ListCity cities={cities}/>
         </View>
     );
 };
+const View = styled.View`
+  background-color: black;
+  height: 100%;
+`
 
-export default LoginScreen;
+export default ListScreen;

@@ -7,24 +7,22 @@ const ButtonForm = (props) => {
     <>
       <Button
         onPress={props.onPress}
-        width={props.width}
-        height={props.height}
       >
-        <TextButton>{props.title}</TextButton>
+        <TextButton
+          fontWeight={props.fontWeight}
+        >{props.title}</TextButton>
       </Button>
     </>
   )
 }
 const Button = styled.TouchableOpacity`
-    background-color:${props => props.theme.red};
-    border-radius: 10px;
-    padding: 20px 50px;
-    margin: 30px;
+    padding: 0px 25px;
 `
 
 const TextButton = styled.Text`
     color: white;
-    font-size: 20px;
+    font-size: 15px;
+    font-weight: ${props => props.fontWeight};
 `
 
 

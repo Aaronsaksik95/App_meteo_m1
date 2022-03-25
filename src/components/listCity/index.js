@@ -15,6 +15,7 @@ const ListCity = (props) => {
         // console.log(props)
         props.cities.map((item) => (
           <Button
+            key={item.insee}
             onPress={() => {
               navigation.navigate('City', {
                 insee: item.insee,

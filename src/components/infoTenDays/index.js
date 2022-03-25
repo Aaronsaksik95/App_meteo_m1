@@ -19,7 +19,7 @@ const InfoDay = (props) => {
             method: 'GET',
             url: `https://api.meteo-concept.com/api/forecast/daily`,
             params: {
-                token: 'f0c5c1f65c0579d4064425e213cf4fda2a3a78ba16911b2b3ed86a543d93b4b4',
+                token: '1cfabdf6f8f17eaf8933da5b75cb8b7f0bcc90957d59fc8f439b5b5404d1696d',
                 insee: props.insee
             }
         })
@@ -57,7 +57,7 @@ const InfoDay = (props) => {
 const View = styled.View`
   margin: 0px auto;
   width: 90%;
-  background-color: #122164c4;
+  background-color: #00000099;
   margin-top: 10px;
   padding: 15px;
   border-radius: 15px;

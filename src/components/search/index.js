@@ -17,7 +17,7 @@ const Search = (props) => {
 }
 const Button = styled.TouchableOpacity`
     top: 80px;
-    left: 20px;
+    left: 90%;
     /* background-color: white; */
 `
 const Image = styled.Image`

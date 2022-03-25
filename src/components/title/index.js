@@ -9,7 +9,7 @@ const Title = (props) => {
   )
 }
 const Text = styled.Text`
-  margin: 80px 0px 20px 20px;
+  margin: 80px 0px 20px 10px;
   color: white;
   font-size: 30px;
   font-weight: 700;

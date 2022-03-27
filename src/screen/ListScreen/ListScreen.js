@@ -9,17 +9,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import WishCities from '../../components/wishCities';
 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }  
+
 const ListScreen = ({ navigation }) => {
     const [city, setCity] = useState('')
     const [cities, setCities] = useState([])
     const [citiesStor, setCitiesStor] = useState([])
+    const [refreshing, setRefreshing] = React.useState(false);
     const timerRef = useRef(null)
     useFocusEffect(
         React.useCallback(() => {
             AsyncStorage.getItem("cities")
                 .then((data) => {
                     setCitiesStor(JSON.parse(data))
-                    console.log(citiesStor)
                 })
 
             clearTimeout(timerRef.current)
@@ -34,7 +38,7 @@ const ListScreen = ({ navigation }) => {
             method: 'GET',
             url: `https://api.meteo-concept.com/api/location/cities`,
             params: {
-                token: '1cfabdf6f8f17eaf8933da5b75cb8b7f0bcc90957d59fc8f439b5b5404d1696d',
+                token: 'c0346bcfe1a042c04a46e03232371b3b64c7034c81a7fc3e689d76c527ae125a',
                 search: city
             }
         })
@@ -45,6 +49,20 @@ const ListScreen = ({ navigation }) => {
                 console.log(error)
             })
     }
+    const deleteCity = async (item) => {
+        console.log(item)
+        AsyncStorage.getItem("cities")
+            .then((data) => {
+                const arrayCities = JSON.parse(data).filter(value => value != item)
+                console.log(arrayCities)
+                AsyncStorage.setItem('cities', JSON.stringify(arrayCities));
+                onRefresh()
+            })
+    }
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
 
     return (
         <View>
@@ -55,7 +73,7 @@ const ListScreen = ({ navigation }) => {
             {city == "" && citiesStor && (
                 <ViewWish showsVerticalScrollIndicator={false}>
                     {citiesStor.map((cityStor) => (
-                        <WishCities insee={cityStor} />
+                        <WishCities insee={cityStor} deleteCity={() => deleteCity(cityStor)} />
                     ))
                     }
                 </ViewWish>

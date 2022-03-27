@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import weather from '../weather/index'
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native'
+import Swipeout from 'react-native-swipeout';
+import corbeille from '../../../assets/corbeille.png'
 
 const WishCities = (props) => {
   const navigation = useNavigation()
@@ -15,7 +17,7 @@ const WishCities = (props) => {
       method: 'GET',
       url: `https://api.meteo-concept.com/api/forecast/nextHours`,
       params: {
-        token: '1cfabdf6f8f17eaf8933da5b75cb8b7f0bcc90957d59fc8f439b5b5404d1696d',
+        token: 'c0346bcfe1a042c04a46e03232371b3b64c7034c81a7fc3e689d76c527ae125a',
         insee: props.insee
       }
     })
@@ -30,7 +32,7 @@ const WishCities = (props) => {
       method: 'GET',
       url: `https://api.meteo-concept.com/api/forecast/daily`,
       params: {
-        token: '1cfabdf6f8f17eaf8933da5b75cb8b7f0bcc90957d59fc8f439b5b5404d1696d',
+        token: 'c0346bcfe1a042c04a46e03232371b3b64c7034c81a7fc3e689d76c527ae125a',
         insee: props.insee
       }
     })
@@ -42,9 +44,21 @@ const WishCities = (props) => {
         console.log(error)
       })
   }, [])
-
+  var swipeoutBtns = [
+    {
+      backgroundColor: 'black',
+      component:
+        (
+          <ButtonDelete onPress={props.deleteCity}>
+            <Image
+              source={corbeille}
+            />
+          </ButtonDelete>
+        )
+    }
+  ]
   return (
-    // <View>
+    <Swipeout backgroundColor='transparent' right={swipeoutBtns}>
       <Button
         onPress={() => {
           navigation.navigate('City', {
@@ -55,8 +69,8 @@ const WishCities = (props) => {
           uri: dataCity?.forecast && weather[dataCity?.forecast[0].weather][2]
         }}
           resizeMode="cover"
-          imageStyle={{ borderRadius: 15}}
-          >
+          imageStyle={{ borderRadius: 15 }}
+        >
           <ViewOne>
             <City>{dataCity?.city?.name}</City>
             <Hour>{new Date().getHours()}:{new Date().getMinutes()}</Hour>
@@ -72,13 +86,21 @@ const WishCities = (props) => {
         </ImageBackground>
 
       </Button>
-    // </View>
+    </Swipeout>
   )
 }
-// const View = styled.View`
-//   border-radius: 20px;
-//   background-color: white;
-// `
+const Image = styled.Image`
+  width: 30px;
+  height: 30px;
+  margin: auto;
+`
+const ButtonDelete = styled.TouchableOpacity`
+  background-color: red;
+  height: 90%;
+  width: 100%;
+  border-radius: 20px;
+  margin: 10px auto;
+`
 const ImageBackground = styled.ImageBackground`
   flex-direction: row;
   justify-content: space-between;

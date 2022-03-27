@@ -19,12 +19,17 @@ const CityScreen = ({ route, navigation }) => {
                 setCities(JSON.parse(data))
             })
     }, [])
-    // if (cities === null) {
-    //     await AsyncStorage.setItem('cities', JSON.stringify([insee]));
-    // } else {
-    //     setCities([...cities, insee]);
-    //     await AsyncStorage.setItem('cities', JSON.stringify(cities));
-    // }
+    const addCities = async () => {
+        const cities = await AsyncStorage.getItem('cities');
+        const citiesParse = await JSON.parse(cities);
+        if (cities === null) {
+            await AsyncStorage.setItem('cities', JSON.stringify([insee]));
+        } else {
+            await AsyncStorage.setItem('cities', JSON.stringify([...citiesParse, insee]));
+        }
+        navigation.navigate('List')
+        // await AsyncStorage.removeItem('cities')
+    }
 
     return (
         <>
@@ -41,17 +46,7 @@ const CityScreen = ({ route, navigation }) => {
                             <ButtonAdd fontWeight="400" title="Annuler" onPress={() => {
                                 navigation.navigate('List')
                             }} />
-                            <ButtonAdd fontWeight="700" title="Ajouter" onPress={async () => {
-                                const cities = await AsyncStorage.getItem('cities');
-                                const citiesParse = await JSON.parse(cities);
-                                if (cities === null) {
-                                    await AsyncStorage.setItem('cities', JSON.stringify([insee]));
-                                } else {
-                                    await AsyncStorage.setItem('cities', JSON.stringify([...citiesParse, insee]));
-                                }
-                                navigation.navigate('List')
-                                // await AsyncStorage.removeItem('cities')
-                            }} />
+                            <ButtonAdd fontWeight="700" title="Ajouter" onPress={addCities} />
                         </ViewButtonAdd>
                     )
                     }

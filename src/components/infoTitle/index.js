@@ -13,7 +13,7 @@ const InfoTitle = (props) => {
       method: 'GET',
       url: `https://api.meteo-concept.com/api/forecast/nextHours`,
       params: {
-        token: '1cfabdf6f8f17eaf8933da5b75cb8b7f0bcc90957d59fc8f439b5b5404d1696d',
+        token: 'c0346bcfe1a042c04a46e03232371b3b64c7034c81a7fc3e689d76c527ae125a',
         insee: props.insee
       }
     })
@@ -28,7 +28,7 @@ const InfoTitle = (props) => {
       method: 'GET',
       url: `https://api.meteo-concept.com/api/forecast/daily`,
       params: {
-        token: '1cfabdf6f8f17eaf8933da5b75cb8b7f0bcc90957d59fc8f439b5b5404d1696d',
+        token: 'c0346bcfe1a042c04a46e03232371b3b64c7034c81a7fc3e689d76c527ae125a',
         insee: props.insee
       }
     })

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import weather from '../weather'
+import weather from '../../weather'
 
 const InfoDay = (props) => {
     const [dataCity, setDataCity] = useState()
@@ -11,7 +11,7 @@ const InfoDay = (props) => {
             method: 'GET',
             url: `https://api.meteo-concept.com/api/forecast/nextHours`,
             params: {
-                token: 'c0346bcfe1a042c04a46e03232371b3b64c7034c81a7fc3e689d76c527ae125a',
+                token: '48db8a26a68b70c8dce7b7c2bb37f4ae7c96e1345eb86a478f3cdbac67ac34af',
                 insee: props.insee
             }
         })

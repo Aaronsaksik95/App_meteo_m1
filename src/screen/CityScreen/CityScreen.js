@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
-import InfoTitle from '../../components/infoTitle/index'
-import InfoDay from '../../components/infoDay/index'
-import InfoTenDay from '../../components/infoTenDays/index'
+import InfoTitle from '../../components/info/infoTitle/index'
+import InfoDay from '../../components/info/infoDay/index'
+import InfoTenDay from '../../components/info/infoTenDays/index'
 import ImageBgd from '../../components/imageBgd/index'
-import Search from "../../components/search";
-import ButtonAdd from "../../components/buttonAdd/index"
+import Search from "../../components/searchIcon";
+import ButtonAdd from "../../components/button/buttonAdd/index"
 import styled from 'styled-components'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
@@ -53,7 +53,6 @@ const CityScreen = ({ route, navigation }) => {
                     <InfoTitle
                         insee={insee}
                     />
-
                     <InfoDay
                         insee={insee}
                     />

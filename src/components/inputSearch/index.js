@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const InputForm = (props) => {
+const InputSearch = (props) => {
   return (
     <>
       <Input
@@ -21,4 +21,4 @@ const Input = styled.TextInput`
   background-color: #252525;
 `
 
-export default InputForm
+export default InputSearch

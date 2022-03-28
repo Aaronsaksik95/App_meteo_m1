@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 // import { View } from 'react-native';
-import InputForm from '../../components/inputForm/index';
+import InputSearch from '../../components/inputSearch/index';
 import Title from '../../components/title/index'
 import ListCity from '../../components/listCity';
 import axios from 'axios';
@@ -9,16 +9,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import WishCities from '../../components/wishCities';
 
-const wait = (timeout) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-  }  
-
 const ListScreen = ({ navigation }) => {
     const [city, setCity] = useState('')
     const [cities, setCities] = useState([])
     const [citiesStor, setCitiesStor] = useState([])
-    const [refreshing, setRefreshing] = React.useState(false);
     const timerRef = useRef(null)
+
     useFocusEffect(
         React.useCallback(() => {
             AsyncStorage.getItem("cities")
@@ -38,7 +34,7 @@ const ListScreen = ({ navigation }) => {
             method: 'GET',
             url: `https://api.meteo-concept.com/api/location/cities`,
             params: {
-                token: 'c0346bcfe1a042c04a46e03232371b3b64c7034c81a7fc3e689d76c527ae125a',
+                token: '48db8a26a68b70c8dce7b7c2bb37f4ae7c96e1345eb86a478f3cdbac67ac34af',
                 search: city
             }
         })
@@ -50,30 +46,24 @@ const ListScreen = ({ navigation }) => {
             })
     }
     const deleteCity = async (item) => {
-        console.log(item)
         AsyncStorage.getItem("cities")
             .then((data) => {
-                const arrayCities = JSON.parse(data).filter(value => value != item)
-                console.log(arrayCities)
+                const arrayCities = JSON.parse(data).filter(value => value !== item)
+                setCitiesStor(arrayCities)
                 AsyncStorage.setItem('cities', JSON.stringify(arrayCities));
-                onRefresh()
             })
     }
-    const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
-        wait(2000).then(() => setRefreshing(false));
-    }, []);
 
     return (
         <View>
             <Title title="Météo" />
-            <InputForm
+            <InputSearch
                 onChangeText={textValue => setCity(textValue)}
             />
             {city == "" && citiesStor && (
                 <ViewWish showsVerticalScrollIndicator={false}>
                     {citiesStor.map((cityStor) => (
-                        <WishCities insee={cityStor} deleteCity={() => deleteCity(cityStor)} />
+                        <WishCities key={cityStor} insee={cityStor} deleteCity={() => deleteCity(cityStor)} />
                     ))
                     }
                 </ViewWish>

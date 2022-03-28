@@ -4,7 +4,7 @@ import weather from '../weather/index'
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native'
 import Swipeout from 'react-native-swipeout';
-import corbeille from '../../../assets/corbeille.png'
+import ButtonDelete from '../../components/button/buttonDelete/index'
 
 const WishCities = (props) => {
   const navigation = useNavigation()
@@ -17,7 +17,7 @@ const WishCities = (props) => {
       method: 'GET',
       url: `https://api.meteo-concept.com/api/forecast/nextHours`,
       params: {
-        token: 'c0346bcfe1a042c04a46e03232371b3b64c7034c81a7fc3e689d76c527ae125a',
+        token: '48db8a26a68b70c8dce7b7c2bb37f4ae7c96e1345eb86a478f3cdbac67ac34af',
         insee: props.insee
       }
     })
@@ -32,7 +32,7 @@ const WishCities = (props) => {
       method: 'GET',
       url: `https://api.meteo-concept.com/api/forecast/daily`,
       params: {
-        token: 'c0346bcfe1a042c04a46e03232371b3b64c7034c81a7fc3e689d76c527ae125a',
+        token: '48db8a26a68b70c8dce7b7c2bb37f4ae7c96e1345eb86a478f3cdbac67ac34af',
         insee: props.insee
       }
     })
@@ -49,11 +49,7 @@ const WishCities = (props) => {
       backgroundColor: 'black',
       component:
         (
-          <ButtonDelete onPress={props.deleteCity}>
-            <Image
-              source={corbeille}
-            />
-          </ButtonDelete>
+          <ButtonDelete onPress={props.deleteCity} />
         )
     }
   ]
@@ -89,18 +85,7 @@ const WishCities = (props) => {
     </Swipeout>
   )
 }
-const Image = styled.Image`
-  width: 30px;
-  height: 30px;
-  margin: auto;
-`
-const ButtonDelete = styled.TouchableOpacity`
-  background-color: red;
-  height: 90%;
-  width: 100%;
-  border-radius: 20px;
-  margin: 10px auto;
-`
+
 const ImageBackground = styled.ImageBackground`
   flex-direction: row;
   justify-content: space-between;

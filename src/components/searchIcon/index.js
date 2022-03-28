@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import weather from '../weather/index'
-import loupe from '../../../assets/loupe.png'
+import liste from '../../../assets/liste.png'
 
-const Search = (props) => {
+const SearchIcon = (props) => {
     return (
             <Button
                 onPress={props.onPress}
             >
                 <Image
-                    source={loupe}
+                    source={liste}
                 />
             </Button>
 
@@ -18,10 +18,9 @@ const Search = (props) => {
 const Button = styled.TouchableOpacity`
     top: 80px;
     left: 90%;
-    /* background-color: white; */
 `
 const Image = styled.Image`
     width: 25px;
     height: 25px;
 `
-export default Search
+export default SearchIcon

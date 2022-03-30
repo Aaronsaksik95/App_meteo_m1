@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import { View } from 'react-native';
 import InputSearch from '../../components/inputSearch/index';
 import Title from '../../components/title/index'
 import ListCity from '../../components/listCity';
@@ -84,8 +83,6 @@ const FlatList = styled.FlatList`
 const View = styled.View`
   background-color: black;
   height: 100%;
-`
-const ViewWish = styled.ScrollView`
 `
 
 export default ListScreen;

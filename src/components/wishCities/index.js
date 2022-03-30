@@ -92,7 +92,6 @@ const ImageBackground = styled.ImageBackground`
 `
 const Button = styled.TouchableOpacity`
   margin-top: 10px;
-  /* border-radius: 20px; */
   padding: 0px 20px;
 `
 const ViewOne = styled.View`

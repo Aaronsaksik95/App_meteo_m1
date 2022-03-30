@@ -27,7 +27,6 @@ const CityScreen = ({ route, navigation }) => {
             await AsyncStorage.setItem('cities', JSON.stringify([...citiesParse, insee]));
         }
         navigation.navigate('List')
-        // await AsyncStorage.removeItem('cities')
     }
 
     return (

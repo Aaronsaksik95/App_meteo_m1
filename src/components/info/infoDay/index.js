@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import weather from '../../weather'
-import uuid from 'react-native-uuid';
 
 const InfoDay = (props) => {
   const [dataCity, setDataCity] = useState()
@@ -23,6 +22,15 @@ const InfoDay = (props) => {
         console.log(error)
       })
   }, [])
+
+  const renderItem = ({ item }) => (
+    <ItemHour>
+      <Hour>{new Date(item.datetime).getHours()} h</Hour>
+      <Icon>{weather[item.weather][1]}</Icon>
+      <Temp>{item.temp2m}°</Temp>
+    </ItemHour>
+  );
+
   return (
     <View>
       <Desc>{dataCity?.forecast && weather[dataCity?.forecast[0].weather][0]}.</Desc>
@@ -30,24 +38,24 @@ const InfoDay = (props) => {
       <ViewHour
         horizontal={true}
         showsHorizontalScrollIndicator={false}>
-        {
-          dataCity?.forecast?.map((item) => (
-            <ItemHour key={uuid.v4()}>
-              <Hour>{new Date(item.datetime).getHours()} h</Hour>
-              <Icon>{weather[item.weather][1]}</Icon>
-              <Temp>{item.temp2m}°</Temp>
-            </ItemHour>
-          ))
-        }
-        {
-          dataCity?.forecast?.map((item) => (
-            <ItemHour key={uuid.v4()}>
-              <Hour>{new Date(item.datetime).getHours()} h</Hour>
-              <Icon>{weather[item.weather][1]}</Icon>
-              <Temp>{item.temp2m}°</Temp>
-            </ItemHour>
-          ))
-        }
+        <FlatList
+          horizontal={true}
+          data={dataCity?.forecast}
+          renderItem={renderItem}
+          keyExtractor={item => item.datetime}
+        />
+        <FlatList
+          horizontal={true}
+          data={dataCity?.forecast}
+          renderItem={renderItem}
+          keyExtractor={item => item.datetime}
+        />
+        <FlatList
+          horizontal={true}
+          data={dataCity?.forecast}
+          renderItem={renderItem}
+          keyExtractor={item => item.datetime}
+        />
       </ViewHour>
     </View>
   )
@@ -63,9 +71,11 @@ const View = styled.View`
 const ViewHour = styled.ScrollView`
   flex-direction: row;
 `
+const FlatList = styled.FlatList`
+`
 const ItemHour = styled.View`
-  flex-direction: column;
   margin: 0px 12px;
+  flex-direction: column;
 `
 const Border = styled.View`
   border: 0.6px solid #ffffff1e;

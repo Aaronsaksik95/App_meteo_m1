@@ -54,6 +54,10 @@ const ListScreen = ({ navigation }) => {
             })
     }
 
+    const renderItem = ({ item }) => (
+        <WishCities insee={item} deleteCity={() => deleteCity(item)} />
+    );
+
     return (
         <View>
             <Title title="Météo" />
@@ -61,18 +65,22 @@ const ListScreen = ({ navigation }) => {
                 onChangeText={textValue => setCity(textValue)}
             />
             {city == "" && citiesStor && (
-                <ViewWish showsVerticalScrollIndicator={false}>
-                    {citiesStor.map((cityStor) => (
-                        <WishCities key={cityStor} insee={cityStor} deleteCity={() => deleteCity(cityStor)} />
-                    ))
-                    }
-                </ViewWish>
+                <FlatList
+                    data={citiesStor}
+                    renderItem={renderItem}
+                    keyExtractor={item => item}
+                />
             )
             }
             <ListCity cities={cities} />
         </View>
     );
 };
+
+
+
+const FlatList = styled.FlatList`
+`
 const View = styled.View`
   background-color: black;
   height: 100%;

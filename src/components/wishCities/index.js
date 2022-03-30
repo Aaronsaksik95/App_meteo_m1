@@ -80,7 +80,6 @@ const WishCities = (props) => {
             </MaxMinView>
           </ViewTwo>
         </ImageBackground>
-
       </Button>
     </Swipeout>
   )

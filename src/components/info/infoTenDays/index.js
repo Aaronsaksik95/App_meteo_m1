@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import weather from '../../weather'
-import uuid from 'react-native-uuid';
 
 const InfoDay = (props) => {
   const [dataCity, setDataCity] = useState()
@@ -31,30 +30,35 @@ const InfoDay = (props) => {
         console.log(error)
       })
   }, [])
+
+  const renderItem = ({ item }) => (
+    <>
+      <ItemDay>
+        <Day>{dayWeek[new Date(item.datetime).getDay()]}</Day>
+        <Icon>{dataCity?.forecast && weather[item.weather][1]}</Icon>
+        <MaxMinView>
+          <MaxMin>{item.tmin}°</MaxMin>
+          <MaxMin>{item.tmax}°</MaxMin>
+        </MaxMinView>
+      </ItemDay>
+      <Border></Border>
+    </>
+  );
+
   return (
     <View>
       <Title>🗓 PRÉVISIONS SUR 14 JOURS</Title>
       <Border></Border>
-      <ViewOneDay>
-        {
-          dataCity?.forecast?.map((item) => (
-            <>
-              <ItemDay key={uuid.v4()}>
-                <Day>{dayWeek[new Date(item.datetime).getDay()]}</Day>
-                <Icon>{dataCity?.forecast && weather[item.weather][1]}</Icon>
-                <MaxMinView>
-                  <MaxMin>{item.tmin}°</MaxMin>
-                  <MaxMin>{item.tmax}°</MaxMin>
-                </MaxMinView>
-              </ItemDay>
-              <Border></Border>
-            </>
-          ))
-        }
-      </ViewOneDay>
+        <FlatList
+          data={dataCity?.forecast}
+          renderItem={renderItem}
+          keyExtractor={item => item.datetime}
+        />
     </View>
   )
 }
+
+
 const View = styled.View`
   margin: 0px auto;
   width: 90%;
@@ -63,8 +67,7 @@ const View = styled.View`
   padding: 15px;
   border-radius: 15px;
 `
-const ViewOneDay = styled.View`
-  flex-direction: column;
+const FlatList = styled.FlatList`
 `
 const ItemDay = styled.View`
   flex-direction: row;

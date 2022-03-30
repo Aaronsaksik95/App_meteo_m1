@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
+import { ScrollView } from "react-native";
 import InfoTitle from '../../components/info/infoTitle/index'
 import InfoDay from '../../components/info/infoDay/index'
 import InfoTenDay from '../../components/info/infoTenDays/index'
@@ -8,7 +8,6 @@ import Search from "../../components/searchIcon";
 import ButtonAdd from "../../components/button/buttonAdd/index"
 import styled from 'styled-components'
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useFocusEffect } from '@react-navigation/native';
 
 const CityScreen = ({ route, navigation }) => {
     const { insee } = route.params;

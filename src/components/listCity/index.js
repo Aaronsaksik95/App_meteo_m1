@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
-import weather from '../weather'
 import { useNavigation } from '@react-navigation/native'
 
 const ListCity = (props) => {
@@ -9,27 +7,34 @@ const ListCity = (props) => {
   useEffect(() => {
 
   }, [])
+
+  const renderItem = ({ item }) => (
+    <Button
+      onPress={() => {
+        navigation.navigate('City', {
+          insee: item.insee,
+        });
+      }}
+    >
+      <TextButton>{item.name}</TextButton>
+    </Button>
+  );
+
   return (
     <View>
-      {
-        // console.log(props)
-        props.cities.map((item) => (
-          <Button
-            key={item.insee}
-            onPress={() => {
-              navigation.navigate('City', {
-                insee: item.insee,
-              });
-            }}
-          >
-            <TextButton>{item.name}</TextButton>
-          </Button>
-        ))
-      }
+      <FlatList
+        data={props.cities}
+        renderItem={renderItem}
+        keyExtractor={item => item.insee}
+      />
+
     </View>
   )
 }
 
+
+const FlatList = styled.FlatList`
+`
 const Button = styled.TouchableOpacity`
   margin-top: 22px;
 `

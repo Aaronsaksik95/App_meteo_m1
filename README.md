@@ -23,3 +23,8 @@ Cette Application a été codé sur la plateforme IOS.
   - Possibilité de la supprimer avec un swiper button.
 
 Une petite application avec peu de fonctionnalitées mais ressemblante à l'original.
+
+### Une petite erreur que j'ai compris mais que je n'arrive pas à regler car j'ai besoin de mon scrollView:
+
+VirtualizedLists should never be nested inside plain ScrollViews with the same 
+orientation because it can break windowing and other functionality

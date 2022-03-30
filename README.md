@@ -28,3 +28,13 @@ Une petite application avec peu de fonctionnalitées mais ressemblante à l'orig
 
 VirtualizedLists should never be nested inside plain ScrollViews with the same 
 orientation because it can break windowing and other functionality
+
+### Etapes de lanceme :
+
+```git clone project```
+```npm install```
+```cd ios```
+```pod install```
+```cd ..```
+```npm run ios```
+```pod run start```

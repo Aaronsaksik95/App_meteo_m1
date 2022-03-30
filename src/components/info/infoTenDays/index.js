@@ -2,57 +2,58 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import weather from '../../weather'
+import uuid from 'react-native-uuid';
 
 const InfoDay = (props) => {
-    const [dataCity, setDataCity] = useState()
-    const [dayWeek] = useState({
-        '0': 'Dim.',
-        '1': 'Lun.',
-        '2': 'Mar.',
-        '3': 'Mer.',
-        '4': 'Jeu.',
-        '5': 'Ven.',
-        '6': 'Sam.',
+  const [dataCity, setDataCity] = useState()
+  const [dayWeek] = useState({
+    '0': 'Dim.',
+    '1': 'Lun.',
+    '2': 'Mar.',
+    '3': 'Mer.',
+    '4': 'Jeu.',
+    '5': 'Ven.',
+    '6': 'Sam.',
+  })
+  useEffect(() => {
+    axios({
+      method: 'GET',
+      url: `https://api.meteo-concept.com/api/forecast/daily`,
+      params: {
+        token: '48db8a26a68b70c8dce7b7c2bb37f4ae7c96e1345eb86a478f3cdbac67ac34af',
+        insee: props.insee
+      }
     })
-    useEffect(() => {
-        axios({
-            method: 'GET',
-            url: `https://api.meteo-concept.com/api/forecast/daily`,
-            params: {
-                token: '48db8a26a68b70c8dce7b7c2bb37f4ae7c96e1345eb86a478f3cdbac67ac34af',
-                insee: props.insee
-            }
-        })
-            .then(response => {
-                setDataCity(response.data)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }, [])
-    return (
-        <View>
-            <Title>🗓 PRÉVISIONS SUR 14 JOURS</Title>
-            <Border></Border>
-            <ViewOneDay>
-                {
-                    dataCity?.forecast?.map((item) => (
-                        <>
-                            <ItemDay key={item.datetime}>
-                                <Day>{dayWeek[new Date(item.datetime).getDay()]}</Day>
-                                <Icon>{dataCity?.forecast && weather[item.weather][1]}</Icon>
-                                <MaxMinView>
-                                    <MaxMin>{item.tmin}°</MaxMin>
-                                    <MaxMin>{item.tmax}°</MaxMin>
-                                </MaxMinView>
-                            </ItemDay>
-                            <Border></Border>
-                        </>
-                    ))
-                }
-            </ViewOneDay>
-        </View>
-    )
+      .then(response => {
+        setDataCity(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }, [])
+  return (
+    <View>
+      <Title>🗓 PRÉVISIONS SUR 14 JOURS</Title>
+      <Border></Border>
+      <ViewOneDay>
+        {
+          dataCity?.forecast?.map((item) => (
+            <>
+              <ItemDay key={uuid.v4()}>
+                <Day>{dayWeek[new Date(item.datetime).getDay()]}</Day>
+                <Icon>{dataCity?.forecast && weather[item.weather][1]}</Icon>
+                <MaxMinView>
+                  <MaxMin>{item.tmin}°</MaxMin>
+                  <MaxMin>{item.tmax}°</MaxMin>
+                </MaxMinView>
+              </ItemDay>
+              <Border></Border>
+            </>
+          ))
+        }
+      </ViewOneDay>
+    </View>
+  )
 }
 const View = styled.View`
   margin: 0px auto;

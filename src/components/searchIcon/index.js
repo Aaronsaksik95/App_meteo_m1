@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import weather from '../weather/index'
 import liste from '../../../assets/liste.png'
 
 const SearchIcon = (props) => {
